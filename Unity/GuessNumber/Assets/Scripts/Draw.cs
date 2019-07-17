@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Draw : MonoBehaviour {
 	[SerializeField] GameObject pixel;
-	bool[,] canvas = new bool[51, 51];
-	List<GameObject> pixels;
+	public bool[,] screen = new bool[51, 51];
+	List<GameObject> pixels = new List<GameObject>();
 	private bool mousePressed;
 
 
@@ -14,10 +14,13 @@ public class Draw : MonoBehaviour {
 
 	void Update () {
 		 draw();
+		 if(screen[0,0]==true){
+			 clearScreen();
+		 }
 	}
 
-	private void draw(){
-		// Mouse X and Y in the canvas grid (center of pixels)
+	public void draw(){
+		// Mouse X and Y in the screen grid (center of pixels)
 		if(Input.GetMouseButtonDown(0)){
 			mousePressed = true;
 		}
@@ -37,28 +40,31 @@ public class Draw : MonoBehaviour {
 		}
 	}
 
-	private void createPixel(int x, int y){
+	public void createPixel(int x, int y){
 		float posX = -4f+(8f/51f)*(x+0.5f);
 		float posY = -4f+(8f/51f)*(y+0.5f);
-		if((x>=0 && x<51)&&(y>=0 && y<51)){
+		if((x>=0 && x<51)&&(y>=0 && y<51) && screen[x,y]==false){
 			Vector2 pos = new Vector2(posX, posY);
 			Quaternion rot = Quaternion.Euler(0, 0, 0);
 			GameObject goPixel;
 			goPixel = Instantiate(pixel, pos, rot) as GameObject ;
 			goPixel.transform.parent = transform;
-			//pixels.Add(goPixel);
+			pixels.Add(goPixel);
 
-			// Update canvas matrix
-			canvas[x,y] = true;
+			// Update screen matrix
+			screen[x,y] = true;
 		}
 	}
 
-	public void clearCanvas(){
-		for (int i=0; i<canvas.GetLength(0); i++) {
-			for (int j=0; j<canvas.GetLength(1); j++) {
-				canvas[i,j]=false;
+	public void clearScreen(){
+		for (int i=0; i<screen.GetLength(0); i++) {
+			for (int j=0; j<screen.GetLength(1); j++) {
+				screen[i,j]=false;
 			}
 		}
-		//Destroy(pixels[0]);
+		for (int i=0; i<pixels.Count; i++) {
+			Destroy(pixels[i]);
+		}
 	}
+
 }
