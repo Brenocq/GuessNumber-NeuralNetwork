@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using ClassesJson;
 
 public class DataManager : MonoBehaviour {
 	[SerializeField] GameObject drawScreen;
@@ -10,6 +11,9 @@ public class DataManager : MonoBehaviour {
 
 	void Awake () {
 		filePath = Application.dataPath + "/Resources/number";
+	}
+
+	void Start(){
 	}
 
 	public void SaveScreen(int number){
@@ -37,7 +41,6 @@ public class DataManager : MonoBehaviour {
 
 		// Convert json to object
 		MainData mainData = JsonUtility.FromJson<MainData>(json);
-
 		return mainData;
 	}
 
@@ -70,17 +73,4 @@ public class DataManager : MonoBehaviour {
 			stream.Close();
 		}
 	}
-
-	// Classes to store the data
-	[System.Serializable]
-	public class ScreenData{
-		public int numRows;
-		public int numColumns;
-		public List<int> data;
-	};
-
-	[System.Serializable]
-	public class MainData{
-		public List<ScreenData> screens = new List<ScreenData>();
-	};
 }
