@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class Draw : MonoBehaviour {
 	[SerializeField] GameObject pixel;
-	public bool[,] screen = new bool[51, 51];
+	[SerializeField] int pixelQtd;
+	public bool[,] screen;
 	List<GameObject> pixels = new List<GameObject>();
 	private bool mousePressed;
 
 
 	void Start () {
+		screen = new bool[pixelQtd, pixelQtd];
 	}
 
 	void Update () {
 		 draw();
-		 if(screen[0,0]==true){
-			 clearScreen();
-		 }
 	}
 
 	public void draw(){
@@ -29,21 +28,27 @@ public class Draw : MonoBehaviour {
 		}
 
 		if(mousePressed){
-			float mouseX = ((Input.mousePosition.x/Screen.width-0.5f)  * 10f*16f/9f+4f) /8f*50f;
-			float mouseY = ((Input.mousePosition.y/Screen.height-0.5f) * 10f+4f)			  /8f*50f;
-			//Debug.Log("("+mouseX+","+mouseY+")");
-			createPixel((int)mouseX,(int)mouseY);
-			createPixel((int)mouseX+1,(int)mouseY);
-			createPixel((int)mouseX-1,(int)mouseY);
-			createPixel((int)mouseX,(int)mouseY+1);
-			createPixel((int)mouseX,(int)mouseY-1);
+			Camera gameCamera = Camera.main;
+			float mouseX = gameCamera.ViewportToWorldPoint(new Vector3(Input.mousePosition.x/Screen.width,0,0)).x;
+			float mouseY = gameCamera.ViewportToWorldPoint(new Vector3(0,Input.mousePosition.y/Screen.height,0)).y;
+
+			float canvasPointX = (mouseX+4f)/8f *pixelQtd;
+			float canvasPointY = (mouseY+4f)/8f *pixelQtd;
+
+			//Debug.Log("("+canvasPointX+","+canvasPointY+")");
+
+			createPixel((int)canvasPointX,(int)canvasPointY);
+			createPixel((int)canvasPointX+1,(int)canvasPointY);
+			createPixel((int)canvasPointX-1,(int)canvasPointY);
+			createPixel((int)canvasPointX,(int)canvasPointY+1);
+			createPixel((int)canvasPointX,(int)canvasPointY-1);
 		}
 	}
 
 	public void createPixel(int x, int y){
-		float posX = -4f+(8f/51f)*(x+0.5f);
-		float posY = -4f+(8f/51f)*(y+0.5f);
-		if((x>=0 && x<51)&&(y>=0 && y<51) && screen[x,y]==false){
+		float posX = -4f+(8f/pixelQtd)*(x+0.5f);
+		float posY = -4f+(8f/pixelQtd)*(y+0.5f);
+		if((x>=0 && x<pixelQtd)&&(y>=0 && y<pixelQtd) && screen[x,y]==false){
 			Vector2 pos = new Vector2(posX, posY);
 			Quaternion rot = Quaternion.Euler(0, 0, 0);
 			GameObject goPixel;
@@ -66,5 +71,17 @@ public class Draw : MonoBehaviour {
 			Destroy(pixels[i]);
 		}
 	}
+
+	public List<int> getData(){
+		List<int> data = new List<int>();
+		for (int y=0; y<pixelQtd; y++) {
+			for (int x=0; x<pixelQtd; x++) {
+				data.Add(screen[x,y]==true? 1 : 0);
+			}
+		}
+		return data;
+	}
+
+	public int getPixelQtd(){ return pixelQtd; }
 
 }
