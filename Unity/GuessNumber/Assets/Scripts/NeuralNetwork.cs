@@ -38,18 +38,19 @@ public class NeuralNetwork : MonoBehaviour
     }
 
     //----- Train neural network -----//
-    for(int epoch=0;epoch<qtdEpoch;epoch++){
-      // Add all the data to a List
-      for (int i = 0; i<10; i++) {
-        mainData = dataManager.GetComponent<DataManager>().loadOldData(i);
-        for (int j=0; j<mainData.screens.Count; j++) {
-          InputData input = new InputData{
-            number = i,
-            data = mainData.screens[j].data,
-          };
-          allData.Add(input);
-        }
+
+    // Add all the data to a List
+    for (int i = 0; i<10; i++) {
+      mainData = dataManager.GetComponent<DataManager>().loadOldData(i);
+      for (int j=0; j<mainData.screens.Count; j++) {
+        InputData input = new InputData{
+          number = i,
+          data = mainData.screens[j].data,
+        };
+        allData.Add(input);
       }
+    }
+    for(int epoch=0;epoch<qtdEpoch;epoch++){
       shuffle(allData);// Randomize the data
       for (int i = 0; i<allData.Count; i++) {
         float[,] input = ListToMatrix(allData[i].data);
