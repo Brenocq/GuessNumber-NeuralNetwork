@@ -133,6 +133,15 @@ public class ShowDataManager : MonoBehaviour
       image.GetComponent<Image>().sprite = sprite;
       AssetDatabase.Refresh();
     }
+  }
 
+  public void deleteImage(int index){
+    // Remove image from the List and save
+    int imageNumber = minImage+index;
+    mainData.screens.RemoveAt(imageNumber);
+    dataManager.GetComponent<DataManager>().saveNewData(selectedNum, mainData);
+    updateImages();
+    updateDataSize();
+    updateTextButtons();
   }
 }
