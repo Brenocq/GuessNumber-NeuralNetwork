@@ -1,7 +1,7 @@
 # GuessNumber NeuralNetwork
 <p align="center">
- <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/TrainScene5.png" height="500">
- <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/TrainScene2.png" height="500">
+ <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/TrainScene5.png" height="200">
+ <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/TrainScene2.png" height="200">
 </p>
 
 ## Introduction
@@ -18,22 +18,32 @@ To train the neural network I used the `.json` that I had previously generated. 
 ### Train Scene
 When this scene is loaded, the NN is trained with all the data stored in the `.json` files. In the middle of this scene there is a screen where it is possible to draw numbers with size of 51x51 pixels. On the left, the number that the NN thinks is being drawn is displayed and a graph with the output on each output node is displayed. On the right, there are buttons for adding more data to the training data.
 <p align="center">
- <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/TrainScene3.png" height="500">
+ <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/TrainScene3.png" height="400">
 </p>
 
 ### Manage Data Scene
 In this scene it is possible to manage all the data stored. You can select from which number the data will be displayed and see all the stored data of that number as png images. It is possible to delete images that will not contribute to train the NN (such as a blank image sent as a mistake).
 To save space, only the images being displayed in the scene exist in the hard disk. Before show the images all the 15 old images are deleted and the new 15 images are generated to be used when displaying the data.
 <p align="center">
- <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/ManageData7.png" height="500">
+ <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/ManageData7.png" height="400">
 </p>
 
 ## How to test
-There is two ways to test this program. The first way is to **install the Unity 2018.3**. The second way is to **execute the `GuessNumberNeuralNetwork.x86_64` file** in the Executable folder in your computer. 
-Obs: It is only possible to edit this program using the Unity Engine, if you want to, use the first way.
+There is two ways to test this program. The first way is to **install the Unity 2018.3**. The second way is to **run the executecutable file**.
+
+Obs: You can only edit this program within the Unity Engine. If you want, use the first path.
 <p align="center">
- <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/UnityInterface.png" height="500">
+ <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/UnityInterface.png" height="400">
 </p>
+### Running the Executable
+#### Linux
+Inside _Executable/Linux_ run the `GuessNumberNeuralNetwork.x86_64` file.
+```
+$ ./GuessNumberNeuralNetwork.x86_64
+```
+#### Windows
+
+#### Mac
 
 ## Future Work
  - Create a new scene to manage the NN
