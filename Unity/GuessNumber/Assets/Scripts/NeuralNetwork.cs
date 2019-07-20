@@ -13,7 +13,7 @@ public class NeuralNetwork : MonoBehaviour
   private int hNodes = 100;
   private int oNodes = 10;
   private float learningRate = 0.2f;
-  private int qtdEpoch = 5;
+  private int qtdEpoch = 1;
   private float[,] wih;
   private float[,] who;
   private List<InputData> allData = new List<InputData>();

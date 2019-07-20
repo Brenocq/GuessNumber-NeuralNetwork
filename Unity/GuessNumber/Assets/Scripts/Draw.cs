@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Draw : MonoBehaviour {
 	[SerializeField] GameObject pixel;
-	[SerializeField] int pixelQtd;
+	[SerializeField] int pixelQtd = 51;
 	public bool[,] screen;
 	List<GameObject> pixels = new List<GameObject>();
 	private bool mousePressed;

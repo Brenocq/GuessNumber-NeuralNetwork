@@ -10,7 +10,7 @@ public class DataManager : MonoBehaviour {
 	private string filePath;
 
 	void Awake () {
-		filePath = Application.dataPath + "/Resources/number";
+			filePath = Application.streamingAssetsPath;
 	}
 
 	void Start(){
@@ -34,7 +34,11 @@ public class DataManager : MonoBehaviour {
 	public MainData loadOldData(int number){
 		// Read from file
 		string json;
-		using(StreamReader stream = new StreamReader(filePath + number + ".json")){
+
+		string path;
+		path = Path.Combine(filePath, "number" + number + ".json");
+
+		using(StreamReader stream = new StreamReader(path)){
 			json = stream.ReadToEnd();
 			stream.Close();
 		}
@@ -67,8 +71,11 @@ public class DataManager : MonoBehaviour {
 	public void saveNewData(int number, MainData newMainData){
 		// Write to file
 		string json = JsonUtility.ToJson(newMainData);
-		Debug.Log("Saving screen to number" + number + ".json");
-		using(StreamWriter stream = new StreamWriter(filePath + number + ".json")){
+
+		string path;
+		path = Path.Combine(filePath,"number" + number + ".json");
+
+		using(StreamWriter stream = new StreamWriter(path)){
 			stream.Write(json);
 			stream.Close();
 		}

@@ -82,7 +82,7 @@ public class ShowDataManager : MonoBehaviour
     updateImages();
   }
 
-  public void generateImage(ScreenData screenData, string fileName){
+  public void generateImage(ScreenData screenData, int number){
     int row = screenData.numRows;
     int col = screenData.numColumns;
 
@@ -99,9 +99,8 @@ public class ShowDataManager : MonoBehaviour
     // Apply all SetPixel calls
     texture.Apply();
 
-    byte[] bytes = texture.EncodeToPNG();
-    Object.Destroy(texture);
-    File.WriteAllBytes(Application.dataPath + "/Resources/Images/" + fileName + ".png", bytes);
+    GameObject image = GameObject.Find("Image ("+number+")");
+    image.GetComponent<RawImage>().texture = texture;
   }
 
   public void updateImages(){
@@ -112,26 +111,14 @@ public class ShowDataManager : MonoBehaviour
     imageNumText.GetComponent<Text>().text = text;
 
     mainData = dataManager.GetComponent<DataManager>().loadOldData(selectedNum);
-    // Clear image folder
-    string path = Application.dataPath + "/Resources/Images";
-    Directory.Delete(path, true);
-    Directory.CreateDirectory(path);
 
     // Generate new images
     int count = 0;
     for (int i = minImage; i<minImage+qtdImagesScreen; i++) {
       if(i<mainData.screens.Count){
-        generateImage(mainData.screens[i], "image"+count);
+        generateImage(mainData.screens[i], count);
         count++;
       }
-    }
-
-    // Update images
-    for (int i = 0; i<qtdImagesScreen; i++) {
-      GameObject image = GameObject.Find("Image ("+i+")");
-      Sprite sprite = Resources.Load<Sprite>("Images/image"+i);
-      image.GetComponent<Image>().sprite = sprite;
-      AssetDatabase.Refresh();
     }
   }
 
