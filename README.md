@@ -35,15 +35,15 @@ Obs: You can only edit this program within the Unity Engine. If you want, use th
 <p align="center">
  <img src="https://github.com/Brenocq/GuessNumber-NeuralNetwork/blob/master/Images/UnityInterface.png" height="400">
 </p>
+
 ### Running the Executable
 #### Linux
-Inside _Executable/Linux_ run the `GuessNumberNeuralNetwork.x86_64` file.
+Inside _Executable/Linux_, run the `GuessNumberNeuralNetwork.x86_64` file.
 ```
 $ ./GuessNumberNeuralNetwork.x86_64
 ```
 #### Windows
-
-#### Mac
+Inside _Executable/Windows/GuessNumberNeuralNetwork_, run the `GuessNumberNeuralNetwork.exe` file.
 
 ## Future Work
  - Create a new scene to manage the NN
